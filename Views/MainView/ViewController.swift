@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 
 class ViewController: UIViewController {
@@ -28,11 +29,13 @@ class ViewController: UIViewController {
             }
         }
         
+        
         let newsListQueue = DispatchQueue(label: "NewsList", attributes: .concurrent)
         
         newsListQueue.async {
             ManagerRequest.fetchNews.shared.fetchNewsInfo(onCompletion: newsCompletionHandler)
         }
+        
         newsTableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "newsCellView")
     }
 }
@@ -47,31 +50,27 @@ extension ViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = newsTableView.dequeueReusableCell(withIdentifier: "newsCellView" , for: indexPath) as! NewsTableViewCell
-        
-        let newsInfo = news[indexPath.row]
-        
-        cell.titleLabel.text = newsInfo.title
-        cell.authorLabel.text = newsInfo.author
-        cell.publishAdLabel.text = newsInfo.publishedAt
-        
-        if let urlString = newsInfo.urlToImage, let url = URL(string: urlString) {
-            DispatchQueue.global().async { [weak self] in
-                if let dataImage = try? Data(contentsOf: url){
-                    if let image = UIImage(data: dataImage){
-                        DispatchQueue.main.async {
-                            cell.newsImage.image = image
-                        }
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        cell.newsImage.image = UIImage(named: "defaultImage")
-                    }
-                }
-            }
-        } else {
-            cell.newsImage.image = images.DEFAULT_IMAGE?.withRenderingMode(.alwaysOriginal)
-        }
-        
+           
+           let newsInfo = news[indexPath.row]
+           
+           cell.titleLabel.text = newsInfo.title
+           cell.authorLabel.text = newsInfo.author
+           cell.publishAdLabel.text = newsInfo.publishedAt
+           
+           if let newsUrlString = newsInfo.urlToImage, let url = URL(string: newsUrlString) {
+               cell.newsImage.kf.indicatorType = .activity
+               cell.newsImage.kf.setImage(with: url, placeholder: images.DEFAULT_IMAGE, options: [.transition(.fade(0.2))], completionHandler: { [weak self] result in
+                   guard let self = self else { return }
+                   switch result {
+                   case .success(_):
+                       break
+                   case .failure(_):
+                       cell.newsImage.image = images.DEFAULT_IMAGE?.withRenderingMode(.alwaysOriginal)
+                   }
+               })
+           } else {
+               cell.newsImage.image = images.DEFAULT_IMAGE?.withRenderingMode(.alwaysOriginal)
+           }
         
         return cell
     }
@@ -81,21 +80,23 @@ extension ViewController: UITableViewDataSource{
         let newsDetailsViewController : NewsDetailsViewController = UIStoryboard(name: "NewsDetailsView", bundle: nil).instantiateViewController(withIdentifier: "NewsDetailsViewController") as! NewsDetailsViewController
        
         self.present(newsDetailsViewController, animated: true, completion: nil)
+        
         newsDetailsViewController.titleLabel.text = newsInfo.title
         newsDetailsViewController.newsExternalLink = newsInfo.url ?? ""
         
-        if let urlString = newsInfo.urlToImage, let url = URL(string: urlString) {
-            DispatchQueue.global().async { [weak self] in
-                if let dataImage = try? Data(contentsOf: url){
-                    if let image = UIImage(data: dataImage){
-                        DispatchQueue.main.async {
-                            newsDetailsViewController.newsImage.image = image
-                        }
-                    }
+        if let newsUrlString = newsInfo.urlToImage, let url = URL(string: newsUrlString) {
+            newsDetailsViewController.newsImage.kf.indicatorType = .activity
+            newsDetailsViewController.newsImage.kf.setImage(with: url, placeholder: images.DEFAULT_IMAGE, options: [.transition(.fade(0.2))], completionHandler: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(_):
+                    break
+                case .failure(_):
+                    newsDetailsViewController.newsImage.image = images.DEFAULT_IMAGE?.withRenderingMode(.alwaysOriginal)
                 }
-            }
+            })
         } else {
-            newsDetailsViewController.newsImage.image = UIImage(named: "defaultImage")
+            newsDetailsViewController.newsImage.image = images.DEFAULT_IMAGE?.withRenderingMode(.alwaysOriginal)
         }
     }
     

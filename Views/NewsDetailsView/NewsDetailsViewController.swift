@@ -22,7 +22,6 @@ class NewsDetailsViewController: UIViewController {
         titleView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         titleView.layer.cornerRadius = 4
         titleLabel.textColor = .white
-        // Do any additional setup after loading the view.
         
         OpenBrowserButton.layer.cornerRadius = 5
         OpenBrowserButton.clipsToBounds = true
@@ -35,7 +34,9 @@ class NewsDetailsViewController: UIViewController {
         guard let url = URL(string: "\(newsExternalLink)") else { return }
            if UIApplication.shared.canOpenURL(url) {
                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+              
            }
+        self.dismiss(animated: true, completion: nil)
     }
     
 }
