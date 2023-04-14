@@ -42,7 +42,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rMC-Uh-vDt">
-                                <rect key="frame" x="96.666666666666686" y="270.66666666666669" width="200" height="50"/>
+                                <rect key="frame" x="96.666666666666686" y="290.66666666666669" width="200" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="I7b-kq-wJZ"/>
@@ -67,7 +67,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ATV-Q9-Uwj" secondAttribute="trailing" id="Jgd-e5-ne5"/>
                             <constraint firstItem="2mX-DL-oru" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="4" id="Tfg-H2-hgV"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="2mX-DL-oru" secondAttribute="trailing" constant="4" id="jwg-Kr-VdU"/>
-                            <constraint firstItem="rMC-Uh-vDt" firstAttribute="top" secondItem="HyN-m3-TnC" secondAttribute="bottom" constant="10" id="kxd-KZ-LG4"/>
+                            <constraint firstItem="rMC-Uh-vDt" firstAttribute="top" secondItem="HyN-m3-TnC" secondAttribute="bottom" constant="30" id="kxd-KZ-LG4"/>
                             <constraint firstItem="rMC-Uh-vDt" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="urG-nh-fZ1"/>
                             <constraint firstItem="ATV-Q9-Uwj" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="zkM-fH-DPt"/>
                         </constraints>

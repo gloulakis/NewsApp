@@ -27,6 +27,8 @@ class NewsDetailsViewController: UIViewController {
         OpenBrowserButton.clipsToBounds = true
         OpenBrowserButton.backgroundColor = .orange
         OpenBrowserButton.setTitle("Go to the link", for: .normal)
+        
+        newsView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
 
     }
     
