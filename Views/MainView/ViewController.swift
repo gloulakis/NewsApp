@@ -15,12 +15,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var newsTableView: UITableView!
     
     var news:[Article] = []
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         newsTableView.dataSource = self
         newsTableView.delegate = self
         newsTableView.separatorColor = UIColor.clear
+        newsTableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
         let newsCompletionHandler = { [weak self] (fetchedNews: [Article]) in
             DispatchQueue.main.async {
@@ -29,15 +32,20 @@ class ViewController: UIViewController {
             }
         }
         
-        
         let newsListQueue = DispatchQueue(label: "NewsList", attributes: .concurrent)
         
         newsListQueue.async {
             ManagerRequest.fetchNews.shared.fetchNewsInfo(onCompletion: newsCompletionHandler)
         }
-        
+
         newsTableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "newsCellView")
     }
+    
+    @objc func refreshData(){
+         newsTableView.reloadData()
+         refreshControl.endRefreshing()
+     }
+    
 }
 
 
