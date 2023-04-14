@@ -37,6 +37,8 @@ class ViewController: UIViewController {
     }
 }
 
+
+//MARK: Table Data
 extension ViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,6 +53,7 @@ extension ViewController: UITableViewDataSource{
         cell.titleLabel.text = newsInfo.title
         cell.authorLabel.text = newsInfo.author
         cell.publishAdLabel.text = newsInfo.publishedAt
+        
         if let urlString = newsInfo.urlToImage, let url = URL(string: urlString) {
             DispatchQueue.global().async { [weak self] in
                 if let dataImage = try? Data(contentsOf: url){
@@ -59,9 +62,17 @@ extension ViewController: UITableViewDataSource{
                             cell.newsImage.image = image
                         }
                     }
+                } else {
+                    DispatchQueue.main.async {
+                        cell.newsImage.image = UIImage(named: "defaultImage")
+                    }
                 }
             }
+        } else {
+            cell.newsImage.image = images.DEFAULT_IMAGE?.withRenderingMode(.alwaysOriginal)
         }
+        
+        
         return cell
     }
     
@@ -72,6 +83,7 @@ extension ViewController: UITableViewDataSource{
         self.present(newsDetailsViewController, animated: true, completion: nil)
         newsDetailsViewController.titleLabel.text = newsInfo.title
         newsDetailsViewController.newsExternalLink = newsInfo.url ?? ""
+        
         if let urlString = newsInfo.urlToImage, let url = URL(string: urlString) {
             DispatchQueue.global().async { [weak self] in
                 if let dataImage = try? Data(contentsOf: url){
@@ -82,12 +94,14 @@ extension ViewController: UITableViewDataSource{
                     }
                 }
             }
+        } else {
+            newsDetailsViewController.newsImage.image = UIImage(named: "defaultImage")
         }
-
     }
     
 }
 
+//MARK: Cell height
 extension ViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
