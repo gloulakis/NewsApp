@@ -42,14 +42,23 @@
                         <color key="textColor" red="0.35896399617195129" green="0.49844294786453247" blue="0.08858964592218399" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0Z-wI-KGj">
+                        <rect key="frame" x="137" y="89" width="235" height="14.333333333333329"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                        <color key="textColor" red="0.3020942211" green="0.55810481310000004" blue="0.77368611099999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="B0Z-wI-KGj" firstAttribute="leading" secondItem="gyh-fz-9w6" secondAttribute="leading" id="0vc-Xg-hcI"/>
                     <constraint firstItem="E2K-rt-RbD" firstAttribute="leading" secondItem="gyh-fz-9w6" secondAttribute="leading" id="1BN-o4-bJl"/>
                     <constraint firstItem="gyh-fz-9w6" firstAttribute="leading" secondItem="86r-37-KBj" secondAttribute="trailing" constant="10" id="2NV-30-Edq"/>
+                    <constraint firstItem="B0Z-wI-KGj" firstAttribute="trailing" secondItem="gyh-fz-9w6" secondAttribute="trailing" id="5uj-U3-ARS"/>
                     <constraint firstAttribute="trailing" secondItem="gyh-fz-9w6" secondAttribute="trailing" constant="10" id="G52-wf-Ta9"/>
                     <constraint firstItem="86r-37-KBj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="R2u-PK-KmJ"/>
                     <constraint firstItem="gyh-fz-9w6" firstAttribute="centerY" secondItem="86r-37-KBj" secondAttribute="centerY" constant="6.5" id="YLC-AP-FWI"/>
+                    <constraint firstItem="B0Z-wI-KGj" firstAttribute="top" secondItem="gyh-fz-9w6" secondAttribute="bottom" constant="7.6666666666666572" id="eEy-2l-dZq"/>
                     <constraint firstAttribute="bottom" secondItem="86r-37-KBj" secondAttribute="bottom" constant="3" id="fvp-BO-2re"/>
                     <constraint firstItem="E2K-rt-RbD" firstAttribute="top" secondItem="fI5-fQ-cqZ" secondAttribute="bottom" constant="8.6666666666666643" id="gVK-cw-zk6"/>
                     <constraint firstItem="gyh-fz-9w6" firstAttribute="top" secondItem="E2K-rt-RbD" secondAttribute="bottom" constant="8.6666666666666785" id="u58-aK-Fml"/>
@@ -64,6 +73,7 @@
                 <outlet property="authorLabel" destination="fI5-fQ-cqZ" id="sf1-51-UVv"/>
                 <outlet property="newsImage" destination="86r-37-KBj" id="YCh-RD-fqU"/>
                 <outlet property="publishAdLabel" destination="E2K-rt-RbD" id="vSG-9o-f5O"/>
+                <outlet property="sourceName" destination="B0Z-wI-KGj" id="m8m-Wu-CGF"/>
                 <outlet property="titleLabel" destination="gyh-fz-9w6" id="H75-U8-arj"/>
             </connections>
             <point key="canvasLocation" x="-129.7709923664122" y="-1.4084507042253522"/>
