@@ -17,27 +17,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEWS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29d-Pb-AEI">
-                                <rect key="frame" x="16" y="39" width="377" height="40.666666666666657"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEWS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29d-Pb-AEI">
+                                <rect key="frame" x="0.0" y="59.000000000000007" width="393" height="20.333333333333336"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jeQ-lN-L5X">
-                                <rect key="frame" x="0.0" y="101.66666666666669" width="393" height="750.33333333333326"/>
+                                <rect key="frame" x="0.0" y="84.333333333333314" width="393" height="767.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="p7Y-gV-Blm">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p7Y-gV-Blm" id="YD3-8m-vHX" customClass="NewsTableViewCell" customModule="NewsApp" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="29d-Pb-AEI" secondAttribute="trailing" id="BUw-wG-qe6"/>
-                            <constraint firstAttribute="top" secondItem="29d-Pb-AEI" secondAttribute="top" constant="-39" id="EWK-d3-Uw0"/>
+                            <constraint firstItem="29d-Pb-AEI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GlD-uk-TwI"/>
                             <constraint firstItem="jeQ-lN-L5X" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MYH-Dm-EJZ"/>
-                            <constraint firstItem="jeQ-lN-L5X" firstAttribute="top" secondItem="29d-Pb-AEI" secondAttribute="bottom" constant="22" id="Okb-VQ-Qki"/>
                             <constraint firstAttribute="bottom" secondItem="jeQ-lN-L5X" secondAttribute="bottom" id="XXA-6M-POF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jeQ-lN-L5X" secondAttribute="trailing" id="Y4l-XV-Gc4"/>
-                            <constraint firstItem="29d-Pb-AEI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="vDy-wN-o5z"/>
+                            <constraint firstItem="jeQ-lN-L5X" firstAttribute="top" secondItem="29d-Pb-AEI" secondAttribute="bottom" constant="5" id="hOm-F8-02C"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="29d-Pb-AEI" secondAttribute="top" id="xmH-92-MyQ"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="393" height="852"/>

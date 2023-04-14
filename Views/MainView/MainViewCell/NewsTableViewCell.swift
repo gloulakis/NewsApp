@@ -1,23 +1,25 @@
 //
-//  newsCellView.swift
+//  NewsTableViewCell.swift
 //  NewsApp
 //
-//  Created by Georgios Loulakis on 13/4/23.
+//  Created by Georgios Loulakis on 14/4/23.
 //
 
 import UIKit
 
-class newsCellView: UITableViewCell {
+class NewsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var newsTitle: UILabel!
-    @IBOutlet weak var newsButtonNextpage: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var publishAdLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var newsImage: UIImageView!
     
-    var getNewsDetails: (() -> ())?
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        newsImage.layer.cornerRadius = 5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,7 +28,6 @@ class newsCellView: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func detailsButtonPressed(_ sender: Any) {
-        getNewsDetails?()
-    }
+    
+    
 }

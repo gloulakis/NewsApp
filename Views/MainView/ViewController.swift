@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
     @IBOutlet var backgrounView: UIView!
     @IBOutlet weak var newsTitleLabel: UILabel!
@@ -17,11 +18,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         newsTableView.dataSource = self
+        newsTableView.delegate = self
+        newsTableView.separatorColor = UIColor.clear
         
-        let newsCompletionHandler = { (fetchedNews: [Article]) in
-            DispatchQueue.main.sync {
-                self.news = fetchedNews
-                self.newsTableView.reloadData()
+        let newsCompletionHandler = { [weak self] (fetchedNews: [Article]) in
+            DispatchQueue.main.async {
+                self?.news = fetchedNews
+                self?.newsTableView.reloadData()
             }
         }
         
@@ -30,29 +33,63 @@ class ViewController: UIViewController {
         newsListQueue.async {
             ManagerRequest.fetchNews.shared.fetchNewsInfo(onCompletion: newsCompletionHandler)
         }
-
+        newsTableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "newsCellView")
     }
 }
 
 extension ViewController: UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return news.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = newsTableView.dequeueReusableCell(withIdentifier: "newsCellView" , for: indexPath) as! NewsTableViewCell
+        
         let newsInfo = news[indexPath.row]
         
-        let cell = newsTableView.dequeueReusableCell(withIdentifier: "newsCellView" , for: indexPath) as! newsCellView
-        cell.newsTitle.text = newsInfo.title
-        if newsInfo.urlToImage?.isEmpty == false {
-            cell.newsImage.image = UIImage(named: "\(newsInfo.urlToImage)")
-        } else {
-            cell.newsImage.image =  UIImage(named: "defaultImage")
+        cell.titleLabel.text = newsInfo.title
+        cell.authorLabel.text = newsInfo.author
+        cell.publishAdLabel.text = newsInfo.publishedAt
+        if let urlString = newsInfo.urlToImage, let url = URL(string: urlString) {
+            DispatchQueue.global().async { [weak self] in
+                if let dataImage = try? Data(contentsOf: url){
+                    if let image = UIImage(data: dataImage){
+                        DispatchQueue.main.async {
+                            cell.newsImage.image = image
+                        }
+                    }
+                }
+            }
         }
-      
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newsInfo = news[indexPath.row]
+        let newsDetailsViewController : NewsDetailsViewController = UIStoryboard(name: "NewsDetailsView", bundle: nil).instantiateViewController(withIdentifier: "NewsDetailsViewController") as! NewsDetailsViewController
+       
+        self.present(newsDetailsViewController, animated: true, completion: nil)
+        newsDetailsViewController.titleLabel.text = newsInfo.title
+        newsDetailsViewController.newsExternalLink = newsInfo.url ?? ""
+        if let urlString = newsInfo.urlToImage, let url = URL(string: urlString) {
+            DispatchQueue.global().async { [weak self] in
+                if let dataImage = try? Data(contentsOf: url){
+                    if let image = UIImage(data: dataImage){
+                        DispatchQueue.main.async {
+                            newsDetailsViewController.newsImage.image = image
+                        }
+                    }
+                }
+            }
+        }
 
+    }
+    
 }
 
+extension ViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+}

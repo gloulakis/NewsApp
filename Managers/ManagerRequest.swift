@@ -15,12 +15,11 @@ class ManagerRequest {
             let url = URL(string: "\(BASE_URL)")
             guard let requestUrl = url else { fatalError() }
             
-            // Prepare URL Request Object
             var request = URLRequest(url: requestUrl)
             request.httpMethod = "GET"
             
-            // Perform HTTP Request
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+                guard let self = self else { return }
                 
                 if let error = error {
                     print("Error posting person: \(error)")
