@@ -37,25 +37,31 @@ class ViewController: UIViewController {
         newsListQueue.async {
             ManagerRequest.fetchNews.shared.fetchNewsInfo(onCompletion: newsCompletionHandler)
         }
-
+        
         newsTableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "newsCellView")
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        KingfisherManager.shared.cache.clearMemoryCache()
     }
     
     @objc func refreshData(){
         let newsCompletionHandler = { [weak self] (fetchedNews: [Article]) in
-               DispatchQueue.main.async {
-                   self?.news = fetchedNews
-                   self?.newsTableView.reloadData()
-                   self?.refreshControl.endRefreshing()
-               }
-           }
-           
-           let newsListQueue = DispatchQueue(label: "NewsList", attributes: .concurrent)
-           
-           newsListQueue.async {
-               ManagerRequest.fetchNews.shared.fetchNewsInfo(onCompletion: newsCompletionHandler)
-           }
-     }
+            DispatchQueue.main.async {
+                self?.news = fetchedNews
+                self?.newsTableView.reloadData()
+                self?.refreshControl.endRefreshing()
+            }
+        }
+        
+        let newsListQueue = DispatchQueue(label: "NewsList", attributes: .concurrent)
+        
+        newsListQueue.async {
+            ManagerRequest.fetchNews.shared.fetchNewsInfo(onCompletion: newsCompletionHandler)
+        }
+    }
     
 }
 
@@ -139,3 +145,5 @@ extension ViewController: UITableViewDelegate{
         return 200
     }
 }
+
+
