@@ -42,8 +42,19 @@ class ViewController: UIViewController {
     }
     
     @objc func refreshData(){
-         newsTableView.reloadData()
-         refreshControl.endRefreshing()
+        let newsCompletionHandler = { [weak self] (fetchedNews: [Article]) in
+               DispatchQueue.main.async {
+                   self?.news = fetchedNews
+                   self?.newsTableView.reloadData()
+                   self?.refreshControl.endRefreshing()
+               }
+           }
+           
+           let newsListQueue = DispatchQueue(label: "NewsList", attributes: .concurrent)
+           
+           newsListQueue.async {
+               ManagerRequest.fetchNews.shared.fetchNewsInfo(onCompletion: newsCompletionHandler)
+           }
      }
     
 }
