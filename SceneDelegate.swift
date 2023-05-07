@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  NewsApp
+//  NewsApplicationn
 //
-//  Created by Georgios Loulakis on 13/4/23.
+//  Created by Georgios Loulakis on 7/5/23.
 //
 
 import UIKit
